@@ -2,7 +2,7 @@
 
 namespace Contracts.Domain;
 
-public abstract class EntityAuditBase<T> : EntityBase<T>, IDateTracking, IUserTracking
+public abstract class EntityAuditBase<T> : BaseEntity<T>, IDateTracking, IUserTracking
 {
     public DateTime CreatedAt { get; set; }
     public DateTime? UpdatedAt { get; set; }

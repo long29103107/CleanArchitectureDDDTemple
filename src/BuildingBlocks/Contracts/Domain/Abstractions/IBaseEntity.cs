@@ -1,6 +1,6 @@
 ﻿namespace Contracts.Domains.Interfaces;
 
-public interface IEntityBase<T>
+public interface IBaseEntity<T>
 {
     T Id { get; set; }
 }
