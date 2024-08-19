@@ -1,4 +1,6 @@
-# Docker
-docker command: docker run -p 6379:6379 --name redis -d redis
-
-Run rabbitmq: docker compose -f docker-compose.Dev.Infrastructure.yaml up
+## Migrations
+|  Service  |  Method   |      Migration command                                                      |
+|-----------|-----------|-----------------------------------------------------------------------------|
+|  Product  |  Add      | Add-migration Init -Context ProductDbContext -o Product/Migrations          | 
+|  Product  |  Update   | Update-database -Context ProductDbContext                                   | 
+|  Product  |  Script   | Script-Migration -Context ProductDbContext                                  | 

@@ -9,6 +9,13 @@
   <ItemGroup>
     <ProjectReference Include="..\Product.Domain\Product.Domain.csproj" />
     <ProjectReference Include="..\Product.Infrastructure\Product.Infrastructure.csproj" />
+    <ProjectReference Include="..\Product.Persistence\Product.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="DependencyInjection\Options\" />
+    <Folder Include="UserCases\Product\Commands\" />
   </ItemGroup>
 
 </Project>

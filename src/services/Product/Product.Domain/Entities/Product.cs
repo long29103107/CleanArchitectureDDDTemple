@@ -1,5 +1,5 @@
 ﻿using Contracts.Domain;
-using Product.Domain.Common;
+using Shared.Domain.ValueOf;
 
 namespace Product.Domain.Entities;
 
