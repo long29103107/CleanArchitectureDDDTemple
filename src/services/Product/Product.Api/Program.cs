@@ -1,13 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
 using Product.Presentation;
-using Microsoft.EntityFrameworkCore; 
+using Microsoft.EntityFrameworkCore;
 using Infrastructures.DependencyInjection.Extensions;
 using Product.Application;
 using System.Reflection;
-using Product.Persistence.Abstractions;
-using Product.Persistence.Implement;
 using Product.Persistence;
 using Product.Infrastructure;
+using Product.Persistence.Repositories;
+using Product.Persistence.Repositories.Abstractions;
+using Product.Application.DependencyInjection.Extensions;
+using Product.Persistence.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,25 +28,21 @@ builder.Services.AddProblemDetails();
 builder.Services.AddServiceInfrastructuresBuildingBlock();
 
 //Add DI Application
-//builder.Services.AddMediatRApplication();
+builder.Services.AddServiceApplication();
+builder.Services.AddServicePersistence(builder.Configuration);
+
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
-builder.Services.AddDbContext<ProductDbContext>(options =>
-{
-    options.UseSqlite(builder.Configuration.GetConnectionString("Product")
-        , b => b.MigrationsAssembly(ProductPersistenceReference.AssemblyName));
-});
 
 builder.Services.AddMediatR(cfg =>
-        cfg.RegisterServicesFromAssemblies(new Assembly[]
-        {
-            ProductApplicationReference.Assembly,
-            ProductPresentationReference.Assembly
-        }));
+    cfg.RegisterServicesFromAssemblies(new Assembly[]
+    {
+        ProductApplicationReference.Assembly,
+        ProductPresentationReference.Assembly
+    }));
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())

@@ -1,10 +1,10 @@
 ﻿
 using Contracts.Abstractions.Common;
 using Infrastructures.Common;
-using Product.Persistence.Abstractions;
+using Product.Persistence.Repositories.Abstractions;
 using Entities = Product.Domain.Entities;
 
-namespace Product.Persistence.Implement;
+namespace Product.Persistence.Repositories;
 
 public class ProductRepository : RepositoryBase<Entities.Product, ProductDbContext>, IProductRepository
 {

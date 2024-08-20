@@ -15,7 +15,10 @@
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="DependencyInjection\Options\" />
-    <Folder Include="UserCases\Product\Commands\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" />
   </ItemGroup>
 
 </Project>

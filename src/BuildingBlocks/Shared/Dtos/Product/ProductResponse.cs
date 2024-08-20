@@ -1,8 +1,6 @@
-﻿using Shared.Domain.ValueOf;
-
-namespace Shared.Dtos.Product;
+﻿namespace Shared.Dtos.Product;
 
 public static class Response
 {
-    public record ProductResponse(ProductId Id, string Name, decimal Price);
+    public sealed record ProductResponse(int Id, string Name, decimal Price);
 }

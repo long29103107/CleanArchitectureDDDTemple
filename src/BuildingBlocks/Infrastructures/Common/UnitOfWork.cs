@@ -23,8 +23,13 @@ public class UnitOfWork<TContext> : IUnitOfWork<TContext>
         _context.Dispose();
     }
 
-    public async Task SaveChangeAsync()
+    public async Task SaveAsync()
     {
         await _context.SaveChangesAsync();
+    }
+
+    public void Save()
+    {
+        _context.SaveChanges();
     }
 }

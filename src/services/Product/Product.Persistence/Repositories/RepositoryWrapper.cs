@@ -1,15 +1,16 @@
 ﻿using Contracts.Abstractions.Common;
+using Infrastructures.Common;
 using Microsoft.EntityFrameworkCore;
-using Product.Persistence.Abstractions;
+using Product.Persistence.Repositories.Abstractions;
 
-namespace Product.Persistence.Implement;
+namespace Product.Persistence.Repositories;
 
-public class RepositoryWrapper : IRepositoryWrapper
+public class RepositoryWrapper : UnitOfWork<ProductDbContext>, IRepositoryWrapper
 {
     private readonly ProductDbContext _context;
     private readonly IUnitOfWork<ProductDbContext> _unitOfwork;
 
-    public RepositoryWrapper(ProductDbContext context, IUnitOfWork<ProductDbContext> unitOfwork)
+    public RepositoryWrapper(ProductDbContext context, IUnitOfWork<ProductDbContext> unitOfwork) : base(context)
     {
         _context = context;
         _unitOfwork = unitOfwork;

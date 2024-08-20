@@ -7,10 +7,16 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNet.Mvc" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" />
 		<PackageReference Include="ValueOf" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <ProjectReference Include="..\Contracts\Contracts.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Domain\" />
 	</ItemGroup>
 </Project>

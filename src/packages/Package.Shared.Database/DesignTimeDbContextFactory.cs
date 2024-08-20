@@ -11,15 +11,16 @@ public class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> wher
 
     public T CreateDbContext(string[] args)
     {
-        Console.WriteLine(Directory.GetCurrentDirectory() + " " + typeof(T).FullName + " " + _dbConnStrKey);
         IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
-        var builder = new DbContextOptionsBuilder<T>();
-        var connectionString = configuration.GetSection($"ConnectionStrings:{_dbConnStrKey}").Value;
+        Console.WriteLine(Directory.GetCurrentDirectory() + " " + typeof(T).FullName + " " + _dbConnStrKey);
+        var connectionString = configuration.GetConnectionString(_dbConnStrKey);
         Console.WriteLine(connectionString);
-        builder.UseSqlite(connectionString, b => b.MigrationsAssembly(SharedDatabaseReference.AssemblyName));
+
+        var builder = new DbContextOptionsBuilder<T>();       
+        builder.UseSqlServer(connectionString, b => b.MigrationsAssembly(SharedDatabaseReference.AssemblyName));
         var dbContext = (T)Activator.CreateInstance(typeof(T), builder.Options);
         return dbContext;
     }
