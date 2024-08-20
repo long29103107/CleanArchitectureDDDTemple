@@ -1,15 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Product.Presentation;
-using Microsoft.EntityFrameworkCore;
 using Infrastructures.DependencyInjection.Extensions;
-using Product.Application;
-using System.Reflection;
-using Product.Persistence;
-using Product.Infrastructure;
 using Product.Persistence.Repositories;
 using Product.Persistence.Repositories.Abstractions;
 using Product.Application.DependencyInjection.Extensions;
 using Product.Persistence.DependencyInjection.Extensions;
+using Package.Shared.ExceptionHandler;
 
 var builder = WebApplication.CreateBuilder(args);
 

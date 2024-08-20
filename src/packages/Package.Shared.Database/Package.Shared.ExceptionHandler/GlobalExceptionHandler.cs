@@ -1,9 +1,9 @@
 ﻿using Contracts.Domain.Exceptions;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Diagnostics;
 
-namespace Product.Presentation;
+namespace Package.Shared.ExceptionHandler;
 
 public sealed class GlobalExceptionHandler : IExceptionHandler
 {
@@ -31,7 +31,6 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         };
 
         httpContext.Response.ContentType = "application/json";
-
         httpContext.Response.StatusCode = statusCode;
 
         await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
@@ -45,6 +44,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         BadRequestException => StatusCodes.Status400BadRequest,
         NotFoundException => StatusCodes.Status404NotFound,
         FormatException => StatusCodes.Status422UnprocessableEntity,
+        ServiceUnavailableException => StatusCodes.Status503ServiceUnavailable,
         _ => StatusCodes.Status500InternalServerError
     };
 

@@ -17,8 +17,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\BuildingBlocks\Contracts\Contracts.csproj" />
     <ProjectReference Include="..\..\..\BuildingBlocks\Infrastructures\Infrastructures.csproj" />
+    <ProjectReference Include="..\..\..\packages\Package.Shared.Database\Package.Shared.ExceptionHandler\Package.Shared.ExceptionHandler.csproj" />
     <ProjectReference Include="..\Product.Application\Product.Application.csproj" />
     <ProjectReference Include="..\Product.Presentation\Product.Presentation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DependencyInjection\Options\" />
   </ItemGroup>
 
 </Project>
