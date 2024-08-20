@@ -34,13 +34,6 @@ builder.Services.AddServicePersistence(builder.Configuration);
 builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
-builder.Services.AddMediatR(cfg =>
-    cfg.RegisterServicesFromAssemblies(new Assembly[]
-    {
-        ProductApplicationReference.Assembly,
-        ProductPresentationReference.Assembly
-    }));
-
 var app = builder.Build();
 
 app.UseExceptionHandler();
