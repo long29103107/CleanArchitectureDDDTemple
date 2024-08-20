@@ -1,6 +1,7 @@
 ﻿using Contracts.Abstractions.Shared;
 using DistributedSystem.Contract.Abstractions.Message;
 using Microsoft.EntityFrameworkCore;
+using Product.Domain.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using Shared.Dtos.Product;
 using static Shared.Services.Product.Query;
@@ -21,6 +22,11 @@ internal sealed class GetProductQueryHandler : IQueryHandler<GetProductQuery, Re
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
             .FirstOrDefaultAsync();
+        
+        if(product is null)
+        {
+            throw new ProductNotFoundException(request.Id);
+        }    
 
         var result = new Response.ProductResponse(product.Id, product.Name, product.Price);
 

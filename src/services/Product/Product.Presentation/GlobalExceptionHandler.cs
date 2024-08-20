@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
+﻿using Contracts.Domain.Exceptions;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace Product.Presentation;
@@ -19,19 +19,51 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
-        _logger.LogError( exception, "Exception occurred: {Message}", exception.Message);
+        //_logger.LogError( exception, "Exception occurred: {Message}", exception.Message);
+        var statusCode = _GetStatusCode(exception);
 
-        var problemDetails = new ProblemDetails
+        var problemDetails = new CustomProblemDetails
         {
-            Status = StatusCodes.Status500InternalServerError,
-            Title = "Server error"
+            Status = statusCode,
+            Title = "Server error",
+            Detail = GetTitle(exception),
+            Errors = GetErrors(exception)
         };
 
-        httpContext.Response.StatusCode = problemDetails.Status.Value;
+        httpContext.Response.ContentType = "application/json";
 
-        await httpContext.Response
-            .WriteAsJsonAsync(problemDetails, cancellationToken);
+        httpContext.Response.StatusCode = statusCode;
+
+        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
 
         return true;
+    }
+
+    private static int _GetStatusCode(Exception exception) =>
+    exception switch
+    {
+        BadRequestException => StatusCodes.Status400BadRequest,
+        NotFoundException => StatusCodes.Status404NotFound,
+        FormatException => StatusCodes.Status422UnprocessableEntity,
+        _ => StatusCodes.Status500InternalServerError
+    };
+
+    private static string GetTitle(Exception exception) =>
+    exception switch
+    {
+        DomainException applicationException => applicationException.Title,
+        _ => "Server Error"
+    };
+
+    private static IReadOnlyCollection<ValidationError> GetErrors(Exception exception)
+    {
+        IReadOnlyCollection<ValidationError> errors = null;
+
+        if (exception is ValidationException validationException)
+        {
+            errors = validationException.Errors;
+        }
+
+        return errors;
     }
 }

@@ -2,6 +2,7 @@
 using Contracts.Abstractions.Message;
 using Contracts.Abstractions.Shared;
 using Microsoft.EntityFrameworkCore;
+using Product.Domain.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using static Shared.Services.Product.Command;
 
@@ -21,6 +22,11 @@ public class DeleteProductCommanHandler : ICommandHandler<DeleteProductCommand>
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
             .FirstOrDefaultAsync();
+
+        if (product is null)
+        {
+            throw new ProductNotFoundException(request.Id);
+        }
 
         _repoWrapper.Product.Delete(product);
         await _repoWrapper.SaveAsync();

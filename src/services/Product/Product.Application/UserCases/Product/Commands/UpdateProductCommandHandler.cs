@@ -6,6 +6,7 @@ using Shared.Dtos.Product;
 using Entities = Product.Domain.Entities;
 using static Shared.Services.Product.Command;
 using Microsoft.EntityFrameworkCore;
+using Product.Domain.Exceptions;
 
 namespace Product.Application.UserCases.Product.Commands;
 
@@ -25,6 +26,11 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
             .FirstOrDefaultAsync();
+
+        if(product is null)
+        {
+            throw new ProductNotFoundException(request.Id);
+        }    
 
         _mapper.Map<UpdateProductCommand, Entities.Product>(request, product);
 
