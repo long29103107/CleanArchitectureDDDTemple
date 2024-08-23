@@ -1,7 +1,8 @@
 ﻿using MediatR;
 
-namespace Contracts.Domain.Abstractions;
+namespace Contracts.Abstractions.Message;
 
 public interface IDomainEvent : INotification
 {
+    
 }

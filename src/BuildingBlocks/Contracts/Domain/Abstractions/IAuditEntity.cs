@@ -2,7 +2,7 @@
 
 namespace Contracts.Domain.Abstractions;
 
-public interface IAuditEntity : IDateTracking, IUserTracking
+public interface IAuditEntity<T> : IDateTracking, IUserTracking, IBaseEntity<T>
 {
-
 }
+

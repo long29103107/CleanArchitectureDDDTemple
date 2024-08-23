@@ -1,15 +1,15 @@
 ﻿using Contracts.Domain.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Diagnostics;
+using Serilog;
 
 namespace Package.Shared.ExceptionHandler;
 
 public sealed class GlobalExceptionHandler : IExceptionHandler
 {
-    private readonly ILogger<GlobalExceptionHandler> _logger;
+    private readonly ILogger _logger;
 
-    public GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger)
+    public GlobalExceptionHandler(ILogger logger)
     {
         _logger = logger;
     }
@@ -19,17 +19,18 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
         Exception exception,
         CancellationToken cancellationToken)
     {
-        //_logger.LogError( exception, "Exception occurred: {Message}", exception.Message);
+        _logger.Error(exception, exception.Message);
+
         var statusCode = _GetStatusCode(exception);
 
         var problemDetails = new CustomProblemDetails
         {
             Status = statusCode,
-            Title = "Server error",
-            Detail = GetTitle(exception),
+            Title = GetTitle(exception),
+            Detail = exception.Message,
             Errors = GetErrors(exception)
         };
-
+         
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = statusCode;
 

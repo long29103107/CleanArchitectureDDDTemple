@@ -1,8 +1,8 @@
-﻿using Contracts.Domain.Abstractions;
+﻿using Contracts.Abstractions.Message;
 
 namespace Contracts.Domain;
 
-public abstract class AggregateRoot<T> : BaseEntity<T>
+public abstract class AggregateRoot
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 
@@ -10,6 +10,5 @@ public abstract class AggregateRoot<T> : BaseEntity<T>
 
     public void ClearDomainEvents() => _domainEvents.Clear();
 
-    protected void RaiseDomainEvent(IDomainEvent domainEvent) =>
-        _domainEvents.Add(domainEvent);
+    public void AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 }

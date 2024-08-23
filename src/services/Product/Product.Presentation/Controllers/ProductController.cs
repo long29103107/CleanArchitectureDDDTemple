@@ -23,7 +23,7 @@ public class ProductController : ControllerBase
         return Ok(await _sender.Send(new GetListProducQuery()));
     }
 
-    [HttpGet("{id:int}")]
+    [HttpGet("{id}")]
     public async Task<IActionResult> GetAsync([FromRoute] int id)
     {
         return Ok(await _sender.Send(new GetProductQuery(id)));

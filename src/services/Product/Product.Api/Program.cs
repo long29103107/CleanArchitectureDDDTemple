@@ -6,8 +6,13 @@ using Product.Persistence.Repositories.Abstractions;
 using Product.Application.DependencyInjection.Extensions;
 using Product.Persistence.DependencyInjection.Extensions;
 using Package.Shared.ExceptionHandler;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateLogger();
 
 builder.Services.AddControllers(config =>
 {
@@ -15,10 +20,16 @@ builder.Services.AddControllers(config =>
     config.ReturnHttpNotAcceptable = true;
     config.Filters.Add(new ProducesAttribute("application/json", "text/plain", "text/json"));
 }).AddApplicationPart(ProductPresentationReference.Assembly);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+builder.Host.UseSerilog((context, loggerConfiguration) =>
+{
+    loggerConfiguration.WriteTo.Console();
+    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
+});
 
 //Add service building block
 builder.Services.AddServiceInfrastructuresBuildingBlock();

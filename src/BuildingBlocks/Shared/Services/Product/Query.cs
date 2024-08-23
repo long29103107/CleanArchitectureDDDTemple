@@ -7,5 +7,5 @@ namespace Shared.Services.Product;
 public static class Query
 {
     public sealed record GetListProducQuery() : IQuery<List<ProductResponse>>;
-    public sealed record GetProductQuery([FromRoute] int Id) : IQuery<ProductResponse>;
+    public sealed record GetProductQuery(int Id) : IQuery<ProductResponse>;
 }

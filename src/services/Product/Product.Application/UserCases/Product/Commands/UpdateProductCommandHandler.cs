@@ -7,21 +7,19 @@ using Entities = Product.Domain.Entities;
 using static Shared.Services.Product.Command;
 using Microsoft.EntityFrameworkCore;
 using Product.Domain.Exceptions;
+using static Product.Domain.Events.ProductEvents;
+using Infrastructures.Messages;
+using Serilog;
 
 namespace Product.Application.UserCases.Product.Commands;
 
-public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand, Response.ProductResponse>
+public class UpdateProductCommandHandler : BaseCommandHandler<IRepositoryWrapper, UpdateProductCommand, Response.ProductResponse>
 {
-    private readonly IRepositoryWrapper _repoWrapper;
-    private readonly IMapper _mapper;
-
-    public UpdateProductCommandHandler(IRepositoryWrapper repoWrapper, IMapper mapper)
+    public UpdateProductCommandHandler(IRepositoryWrapper repoWrapper, ILogger logger, IMapper mapper) : base(repoWrapper, logger, mapper)
     {
-        _repoWrapper = repoWrapper;
-        _mapper = mapper;
     }
 
-    public async Task<Result<Response.ProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
+    public override async Task<Result<Response.ProductResponse>> Handle(UpdateProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
@@ -33,6 +31,8 @@ public class UpdateProductCommandHandler : ICommandHandler<UpdateProductCommand,
         }    
 
         _mapper.Map<UpdateProductCommand, Entities.Product>(request, product);
+
+        product.AddDomainEvent(new UpdatedProductEvent(product));
 
         _repoWrapper.Product.Update(product);
         await _repoWrapper.SaveAsync();

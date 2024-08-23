@@ -1,23 +1,22 @@
 ﻿using AutoMapper;
-using Contracts.Abstractions.Message;
 using Contracts.Abstractions.Shared;
+using Infrastructures.Messages;
 using Microsoft.EntityFrameworkCore;
 using Product.Domain.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
+using Serilog;
+using static Product.Domain.Events.ProductEvents;
 using static Shared.Services.Product.Command;
 
 namespace Product.Application.UserCases.Product.Commands;
 
-public class DeleteProductCommanHandler : ICommandHandler<DeleteProductCommand>
+public class DeleteProductCommanHandler : BaseCommandHandler<IRepositoryWrapper, DeleteProductCommand>
 {
-    private readonly IRepositoryWrapper _repoWrapper;
-
-    public DeleteProductCommanHandler(IRepositoryWrapper repoWrapper, IMapper mapper)
+    public DeleteProductCommanHandler(IRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger) : base(repoWrapper, mapper, logger)
     {
-        _repoWrapper = repoWrapper;
     }
 
-    public async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public override async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
     {
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
@@ -28,7 +27,10 @@ public class DeleteProductCommanHandler : ICommandHandler<DeleteProductCommand>
             throw new ProductNotFoundException(request.Id);
         }
 
+        product.AddDomainEvent(new DeletedProductEvent(product));
+
         _repoWrapper.Product.Delete(product);
+
         await _repoWrapper.SaveAsync();
 
         return Result.Success();

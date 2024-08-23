@@ -1,8 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Contracts.Domain.Abstractions;
+using Domain = Contracts.Domain;
 using Contracts.Domain;
+using Contracts.Domain.Abstractions;
 
 namespace Product.Persistence.Interceptor;
 
@@ -15,17 +16,12 @@ public class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
     {
         DbContext? dbContext = eventData.Context;
 
-        if (dbContext is null)
-        {
-            return base.SavingChangesAsync(
-                eventData,
-                result,
-                cancellationToken);
-        }
+        if (dbContext is null) 
+            return base.SavingChangesAsync(eventData, result, cancellationToken);
 
-        IEnumerable<EntityEntry<AuditEntity>> entries = dbContext.ChangeTracker.Entries<AuditEntity>();
+        IEnumerable<EntityEntry<AuditEntity<int>>> entries = dbContext.ChangeTracker.Entries<AuditEntity<int>>();
 
-        foreach (EntityEntry<AuditEntity> entityEntry in entries)
+        foreach (EntityEntry<AuditEntity<int>> entityEntry in entries)
         {
             if (entityEntry.State == EntityState.Added)
             {
@@ -40,9 +36,6 @@ public class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
             }
         }
 
-        return base.SavingChangesAsync(
-            eventData,
-            result,
-            cancellationToken);
+        return base.SavingChangesAsync( eventData, result, cancellationToken);
     }
 }

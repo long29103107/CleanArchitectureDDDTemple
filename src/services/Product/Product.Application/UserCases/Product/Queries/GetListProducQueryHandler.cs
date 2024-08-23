@@ -1,22 +1,21 @@
 ﻿using Contracts.Abstractions.Shared;
-using DistributedSystem.Contract.Abstractions.Message;
 using Shared.Dtos.Product;
 using static Shared.Services.Product.Query;
 using Microsoft.EntityFrameworkCore;
 using Product.Persistence.Repositories.Abstractions;
+using Infrastructures.Messages;
+using AutoMapper;
+using Serilog;
 
 namespace Product.Application.UserCases.Product.Queries;
 
-internal sealed class GetListProducQueryHandler : IQueryHandler<GetListProducQuery, List<Response.ProductResponse>>
+internal sealed class GetListProducQueryHandler : BaseQueryHandler<IRepositoryWrapper, GetListProducQuery, List<Response.ProductResponse>>
 {
-    private readonly IRepositoryWrapper _repoWrapper;
-
-    public GetListProducQueryHandler(IRepositoryWrapper repoWrapper)
+    public GetListProducQueryHandler(IRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger) : base(repoWrapper, mapper, logger)
     {
-        _repoWrapper = repoWrapper;
     }
 
-    public async Task<Result<List<Response.ProductResponse>>> Handle(GetListProducQuery request, CancellationToken cancellationToken)
+    public override async Task<Result<List<Response.ProductResponse>>> Handle(GetListProducQuery request, CancellationToken cancellationToken)
     {
         var products = await _repoWrapper.Product.FindAll().ToListAsync();
         var result = new List<Response.ProductResponse>();

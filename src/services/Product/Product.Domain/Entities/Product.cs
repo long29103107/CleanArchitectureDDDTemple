@@ -2,7 +2,7 @@
 
 namespace Product.Domain.Entities;
 
-public sealed class Product : AggregateRoot<int>
+public sealed class Product : AuditEntity<int>
 {
     public string Name { get; set; }
     public decimal Price { get; set; }
