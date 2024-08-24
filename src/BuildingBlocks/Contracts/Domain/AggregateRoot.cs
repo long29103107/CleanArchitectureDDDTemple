@@ -2,7 +2,7 @@
 
 namespace Contracts.Domain;
 
-public abstract class AggregateRoot
+public abstract class AggregateRoot<T> :  AuditEntity<T>
 {
     private readonly List<IDomainEvent> _domainEvents = new();
 

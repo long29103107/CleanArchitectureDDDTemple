@@ -2,7 +2,7 @@
 using Contracts.Abstractions.Shared;
 using Infrastructures.Messages;
 using Microsoft.EntityFrameworkCore;
-using Product.Domain.Exceptions;
+using Product.Domain.Product.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
 using Shared.Dtos.Product;

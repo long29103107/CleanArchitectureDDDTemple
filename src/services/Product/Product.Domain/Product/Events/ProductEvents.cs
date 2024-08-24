@@ -1,6 +1,6 @@
 ﻿using Contracts.Abstractions.Message;
 
-namespace Product.Domain.Events;
+namespace Product.Domain.Product.Events;
 
 public static class ProductEvents
 {

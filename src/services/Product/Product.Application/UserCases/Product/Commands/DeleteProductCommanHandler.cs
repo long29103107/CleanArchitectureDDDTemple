@@ -2,11 +2,12 @@
 using Contracts.Abstractions.Shared;
 using Infrastructures.Messages;
 using Microsoft.EntityFrameworkCore;
-using Product.Domain.Exceptions;
+using Product.Domain.Product.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
-using static Product.Domain.Events.ProductEvents;
+using static Product.Domain.Product.Events.ProductEvents;
 using static Shared.Services.Product.Command;
+using Entities = Product.Domain.Entities; 
 
 namespace Product.Application.UserCases.Product.Commands;
 
@@ -20,14 +21,10 @@ public class DeleteProductCommanHandler : BaseCommandHandler<IRepositoryWrapper,
     {
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
-            .FirstOrDefaultAsync();
+            .FirstOrDefaultAsync()
+            ?? throw new ProductNotFoundException(request.Id);
 
-        if (product is null)
-        {
-            throw new ProductNotFoundException(request.Id);
-        }
-
-        product.AddDomainEvent(new DeletedProductEvent(product));
+        product.Delete();
 
         _repoWrapper.Product.Delete(product);
 

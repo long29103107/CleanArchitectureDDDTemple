@@ -2,6 +2,8 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Contracts.Domain;
+using Contracts.Domain.Abstractions;
+using Contracts.Domains.Interfaces;
 
 namespace Product.Persistence.Interceptors.cs;
 
@@ -34,7 +36,7 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
         if (context == null) return;
 
         var entities = context.ChangeTracker
-            .Entries<AggregateRoot>()
+            .Entries<AggregateRoot<int>>()
             .Where(e => e.Entity.GetDomainEvents().Any())
             .Select(e => e.Entity)
             .ToList();

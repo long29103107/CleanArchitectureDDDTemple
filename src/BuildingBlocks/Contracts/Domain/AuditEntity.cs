@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Contracts.Domain.Abstractions;
+using Contracts.Domain.Abstractions.Primitives;
+
 namespace Contracts.Domain;
 
-public class AuditEntity<T> : AggregateRoot, IAuditEntity<T>
+public abstract class AuditEntity<T> : /* ValueObject,*/ IAuditEntity<T>
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

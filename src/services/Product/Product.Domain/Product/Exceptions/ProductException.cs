@@ -1,6 +1,6 @@
 ﻿using Contracts.Domain.Exceptions;
 
-namespace Product.Domain.Exceptions;
+namespace Product.Domain.Product.Exceptions;
 
 public class ProductNotFoundException : NotFoundException
 {

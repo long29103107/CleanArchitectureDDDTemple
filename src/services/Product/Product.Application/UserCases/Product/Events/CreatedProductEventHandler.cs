@@ -2,7 +2,7 @@
 using Infrastructures.Messages;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
-using static Product.Domain.Events.ProductEvents;
+using static Product.Domain.Product.Events.ProductEvents;
 
 namespace Product.Application.UserCases.Product.Events;
 

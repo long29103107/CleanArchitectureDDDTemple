@@ -2,7 +2,7 @@
 
 namespace Product.Domain.Entities;
 
-public sealed class Product : AuditEntity<int>
+public sealed partial class Product : AggregateRoot<int>
 {
     public string Name { get; set; }
     public decimal Price { get; set; }
@@ -11,5 +11,11 @@ public sealed class Product : AuditEntity<int>
     {
         Name = name;
         Price = price;
+    }
+
+    public Product(Product product)
+    {
+        Name = product.Name;
+        Price = product.Price;
     }
 }

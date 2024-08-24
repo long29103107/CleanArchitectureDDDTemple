@@ -4,7 +4,7 @@ using Shared.Dtos.Product;
 using Entities = Product.Domain.Entities;
 using static Shared.Services.Product.Command;
 using AutoMapper;
-using static Product.Domain.Events.ProductEvents;
+using static Product.Domain.Product.Events.ProductEvents;
 using Infrastructures.Messages;
 using Serilog;
 
@@ -20,9 +20,9 @@ internal sealed class CreateProductCommandHandler : BaseCommandHandler<IReposito
     {
         var product = _mapper.Map<Entities.Product>(request);
 
-        _repoWrapper.Product.Add(product);
+        product.Create();
 
-        product.AddDomainEvent(new CreatedProductEvent(product));
+        _repoWrapper.Product.Add(product);
 
         await _repoWrapper.SaveAsync();
 
