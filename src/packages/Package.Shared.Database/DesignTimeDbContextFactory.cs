@@ -15,13 +15,14 @@ public class DesignTimeDbContextFactory<T> : IDesignTimeDbContextFactory<T> wher
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("appsettings.json")
             .Build();
-        Console.WriteLine(Directory.GetCurrentDirectory() + " " + typeof(T).FullName + " " + _dbConnStrKey);
-        var connectionString = configuration.GetConnectionString(_dbConnStrKey);
-        Console.WriteLine(connectionString);
 
         var builder = new DbContextOptionsBuilder<T>();       
-        builder.UseSqlServer(connectionString, b => b.MigrationsAssembly(SharedDatabaseReference.AssemblyName));
+        builder.UseSqlServer(
+            configuration.GetConnectionString(_dbConnStrKey), 
+            b => b.MigrationsAssembly(SharedDatabaseReference.AssemblyName));
+
         var dbContext = (T)Activator.CreateInstance(typeof(T), builder.Options);
+
         return dbContext;
     }
 }
