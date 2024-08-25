@@ -42,7 +42,7 @@ public sealed class GlobalExceptionHandler : IExceptionHandler
     private static int _GetStatusCode(Exception exception) =>
     exception switch
     {
-        BadRequestException => StatusCodes.Status400BadRequest,
+        BadRequestException or ValidationException => StatusCodes.Status400BadRequest,
         NotFoundException => StatusCodes.Status404NotFound,
         FormatException => StatusCodes.Status422UnprocessableEntity,
         ServiceUnavailableException => StatusCodes.Status503ServiceUnavailable,

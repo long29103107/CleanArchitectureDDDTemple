@@ -14,6 +14,6 @@ internal sealed class CreatedProductEventHandler : BaseEventHandler<IRepositoryW
 
     public override async Task Handle(CreatedProductEvent notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        _logger.Information($"Product {notification.Product.Id} created successfully !");
     }
 }

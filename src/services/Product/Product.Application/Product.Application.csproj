@@ -15,10 +15,13 @@
 
   <ItemGroup>
     <Folder Include="DependencyInjection\Options\" />
+    <Folder Include="Behaviors\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" />
+    <PackageReference Include="FluentValidation.AspNetCore" />
+    <PackageReference Include="Serilog.AspNetCore" />
   </ItemGroup>
 
 </Project>

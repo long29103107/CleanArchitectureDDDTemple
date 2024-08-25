@@ -15,6 +15,6 @@ internal sealed class DeletedProductEventHandler : BaseEventHandler<IRepositoryW
 
     public override async Task Handle(DeletedProductEvent notification, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        _logger.Information($"Product {notification.Product.Id} deleted successfully !");
     }
 }

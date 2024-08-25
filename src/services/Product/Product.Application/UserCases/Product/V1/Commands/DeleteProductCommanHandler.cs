@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Contracts.Abstractions.Shared;
+using FluentValidation;
 using Infrastructures.Messages;
 using Microsoft.EntityFrameworkCore;
 using Product.Domain.Product.Exceptions;
@@ -11,8 +12,10 @@ namespace Product.Application.UserCases.Product.V1.Commands;
 
 internal sealed class DeleteProductCommanHandler : BaseCommandHandler<IRepositoryWrapper, DeleteProductCommand>
 {
-    public DeleteProductCommanHandler(IRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger) : base(repoWrapper, mapper, logger)
+    private readonly IValidator<DeleteProductCommand> _validator;
+    public DeleteProductCommanHandler(IRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger, IValidator<DeleteProductCommand> validator) : base(repoWrapper, mapper, logger)
     {
+        _validator = validator;
     }
 
     public override async Task<Result> Handle(DeleteProductCommand command, CancellationToken cancellationToken)

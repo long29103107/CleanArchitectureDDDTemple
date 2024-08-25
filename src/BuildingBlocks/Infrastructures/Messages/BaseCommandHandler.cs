@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Contracts.Abstractions.Message;
 using Contracts.Abstractions.Shared;
+using FluentValidation;
 using Serilog;
 
 namespace Infrastructures.Messages;
@@ -14,9 +15,9 @@ public abstract class BaseCommandHandler<TRepositoryWrapper, TCommand> : IComman
 
     public BaseCommandHandler(TRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger)
     {
-        _repoWrapper = repoWrapper;
-        _mapper = mapper;
-        _logger = logger;
+        _repoWrapper = repoWrapper ?? throw new ArgumentNullException(nameof(_repoWrapper));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
+        _logger = logger ?? throw new ArgumentNullException(nameof(_logger));
     }
 
     public virtual async Task<Result> Handle(TCommand request, CancellationToken cancellationToken)

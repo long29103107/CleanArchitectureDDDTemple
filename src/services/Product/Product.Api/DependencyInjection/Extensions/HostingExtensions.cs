@@ -1,7 +1,4 @@
-﻿using Package.Shared.ExceptionHandler;
-using Serilog;
-using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
-using Carter;
+﻿using Carter;
 using Product.Presentation.DependencyInjection.Extensions;
 using Product.Application.DependencyInjection.Extensions;
 using Product.Persistence.DependencyInjection.Extensions;
@@ -13,7 +10,7 @@ public static class HostingExtensions
 {
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
-        builder.Services.AddServiceCollectionApi()
+        builder.Services
             .AddServiceCollectionApplication()
             .AddServiceCollectionPersistence(builder.Configuration)
             .AddServiceCollectionPresentation();
