@@ -19,7 +19,7 @@ public interface IRepositoryBase<T, TContext>
     void AddRange(IEnumerable<T> entities);
     void Update(T entity);
     void UpdateRange(IEnumerable<T> entities);
-    void Delete(T entity);
+    void Remove(T entity);
     void RemoveRange(IEnumerable<T> entities);
     #endregion
 

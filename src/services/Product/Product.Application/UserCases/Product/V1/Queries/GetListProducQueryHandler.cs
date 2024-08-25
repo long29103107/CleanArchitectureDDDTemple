@@ -1,13 +1,13 @@
 ﻿using Contracts.Abstractions.Shared;
-using Shared.Dtos.Product;
-using static Shared.Services.Product.Query;
 using Microsoft.EntityFrameworkCore;
 using Product.Persistence.Repositories.Abstractions;
 using Infrastructures.Messages;
 using AutoMapper;
 using Serilog;
+using Shared.Dtos.Product.V1;
+using static Shared.Services.Product.V1.Query;
 
-namespace Product.Application.UserCases.Product.Queries;
+namespace Product.Application.UserCases.Product.V1.Queries;
 
 internal sealed class GetListProducQueryHandler : BaseQueryHandler<IRepositoryWrapper, GetListProducQuery, List<Response.ProductResponse>>
 {

@@ -1,14 +1,13 @@
 ﻿using Contracts.Abstractions.Shared;
 using Product.Persistence.Repositories.Abstractions;
-using Shared.Dtos.Product;
 using Entities = Product.Domain.Entities;
-using static Shared.Services.Product.Command;
 using AutoMapper;
-using static Product.Domain.Product.Events.ProductEvents;
 using Infrastructures.Messages;
 using Serilog;
+using Shared.Dtos.Product.V1;
+using static Shared.Services.Product.V1.Command;
 
-namespace Product.Application.UserCases.Product.Commands;
+namespace Product.Application.UserCases.Product.V1.Commands;
 
 internal sealed class CreateProductCommandHandler : BaseCommandHandler<IRepositoryWrapper, CreateProductCommand, Response.ProductResponse>
 {
@@ -16,9 +15,9 @@ internal sealed class CreateProductCommandHandler : BaseCommandHandler<IReposito
     {
     }
 
-    public override async Task<Result<Response.ProductResponse>> Handle(CreateProductCommand request, CancellationToken cancellationToken)
+    public override async Task<Result<Response.ProductResponse>> Handle(CreateProductCommand command, CancellationToken cancellationToken)
     {
-        var product = _mapper.Map<Entities.Product>(request);
+        var product = _mapper.Map<Entities.Product>(command.Request);
 
         product.Create();
 

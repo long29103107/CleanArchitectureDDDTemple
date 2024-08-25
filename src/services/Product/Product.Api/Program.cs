@@ -1,62 +1,26 @@
-using Microsoft.AspNetCore.Mvc;
-using Product.Presentation;
-using Infrastructures.DependencyInjection.Extensions;
-using Product.Persistence.Repositories;
-using Product.Persistence.Repositories.Abstractions;
-using Product.Application.DependencyInjection.Extensions;
-using Product.Persistence.DependencyInjection.Extensions;
-using Package.Shared.ExceptionHandler;
 using Serilog;
+using Product.Api.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Console()
-    .CreateLogger();
+var app = builder
+    .ConfigureServices()
+    .ConfigurePipeline(builder);
 
-builder.Services.AddControllers(config =>
+try
 {
-    config.RespectBrowserAcceptHeader = true;
-    config.ReturnHttpNotAcceptable = true;
-    config.Filters.Add(new ProducesAttribute("application/json", "text/plain", "text/json"));
-}).AddApplicationPart(ProductPresentationReference.Assembly);
-
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddProblemDetails();
-builder.Host.UseSerilog((context, loggerConfiguration) =>
+    await app.RunAsync();
+    Log.Information("Stopped cleanly");
+}
+catch (Exception ex)
 {
-    loggerConfiguration.WriteTo.Console();
-    loggerConfiguration.ReadFrom.Configuration(context.Configuration);
-});
-
-//Add service building block
-builder.Services.AddServiceInfrastructuresBuildingBlock();
-
-//Add DI Application
-builder.Services.AddServiceApplication();
-builder.Services.AddServicePersistence(builder.Configuration);
-
-builder.Services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
-builder.Services.AddScoped<IProductRepository, ProductRepository>();
-
-var app = builder.Build();
-
-app.UseExceptionHandler();
-
-if (app.Environment.IsDevelopment())
+    Log.Fatal(ex, "An unhandled exception occured during bootstrapping");
+    await app.StopAsync();
+}
+finally
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    Log.CloseAndFlush();
+    await app.DisposeAsync();
 }
 
-app.UseRouting();
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+public partial class Program { }

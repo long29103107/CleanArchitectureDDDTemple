@@ -5,7 +5,7 @@ using Product.Persistence.Repositories.Abstractions;
 using Serilog;
 using static Product.Domain.Product.Events.ProductEvents;
 
-namespace Product.Application.UserCases.Product.Events;
+namespace Product.Application.UserCases.Product.V1.Events;
 
 internal sealed class DeletedProductEventHandler : BaseEventHandler<IRepositoryWrapper, DeletedProductEvent>
 {

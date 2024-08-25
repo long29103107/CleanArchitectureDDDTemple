@@ -5,28 +5,26 @@ using Microsoft.EntityFrameworkCore;
 using Product.Domain.Product.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
-using static Product.Domain.Product.Events.ProductEvents;
-using static Shared.Services.Product.Command;
-using Entities = Product.Domain.Entities; 
+using static Shared.Services.Product.V1.Command;
 
-namespace Product.Application.UserCases.Product.Commands;
+namespace Product.Application.UserCases.Product.V1.Commands;
 
-public class DeleteProductCommanHandler : BaseCommandHandler<IRepositoryWrapper, DeleteProductCommand>
+internal sealed class DeleteProductCommanHandler : BaseCommandHandler<IRepositoryWrapper, DeleteProductCommand>
 {
     public DeleteProductCommanHandler(IRepositoryWrapper repoWrapper, IMapper mapper, ILogger logger) : base(repoWrapper, mapper, logger)
     {
     }
 
-    public override async Task<Result> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
+    public override async Task<Result> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
         var product = await _repoWrapper.Product
-            .FindByCondition(x => x.Id == request.Id)
+            .FindByCondition(x => x.Id == command.Id)
             .FirstOrDefaultAsync()
-            ?? throw new ProductNotFoundException(request.Id);
+            ?? throw new ProductNotFoundException(command.Id);
 
         product.Delete();
 
-        _repoWrapper.Product.Delete(product);
+        _repoWrapper.Product.Remove(product);
 
         await _repoWrapper.SaveAsync();
 

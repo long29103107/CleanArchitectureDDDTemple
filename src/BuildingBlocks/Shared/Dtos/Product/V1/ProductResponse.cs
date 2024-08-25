@@ -1,4 +1,4 @@
-﻿namespace Shared.Dtos.Product;
+﻿namespace Shared.Dtos.Product.V1;
 
 public static class Response
 {

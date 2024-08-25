@@ -2,7 +2,7 @@
 
 namespace Product.Domain.Entities;
 
-public sealed partial class Product
+public partial class Product
 {
     public void Delete() => AddDomainEvent(new DeletedProductEvent(this));
     public void Update() => AddDomainEvent(new UpdatedProductEvent(this));

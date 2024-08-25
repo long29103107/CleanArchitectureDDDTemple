@@ -2,10 +2,8 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore;
 using Contracts.Domain;
-using Contracts.Domain.Abstractions;
-using Contracts.Domains.Interfaces;
 
-namespace Product.Persistence.Interceptors.cs;
+namespace Product.Persistence.Interceptors;
 
 public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
 {
@@ -16,22 +14,14 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
         _mediator = mediator;
     }
 
-    public override InterceptionResult<int> SavingChanges(DbContextEventData eventData, InterceptionResult<int> result)
-    {
-        DispatchDomainEvents(eventData.Context).GetAwaiter().GetResult();
-
-        return base.SavingChanges(eventData, result);
-
-    }
-
     public override async ValueTask<InterceptionResult<int>> SavingChangesAsync(DbContextEventData eventData, InterceptionResult<int> result, CancellationToken cancellationToken = default)
     {
-        await DispatchDomainEvents(eventData.Context);
+        await DispatchDomainEventsAsync(eventData.Context);
 
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public async Task DispatchDomainEvents(DbContext? context)
+    public async Task DispatchDomainEventsAsync(DbContext? context)
     {
         if (context == null) return;
 
@@ -42,7 +32,8 @@ public class DispatchDomainEventsInterceptor : SaveChangesInterceptor
             .ToList();
 
         var domainEvents = entities
-            .SelectMany(e => e.GetDomainEvents());
+            .SelectMany(e => e.GetDomainEvents())
+            .ToList();
 
         entities.ToList().ForEach(e => e.ClearDomainEvents());
 

@@ -1,8 +1,7 @@
 ﻿using DistributedSystem.Contract.Abstractions.Message;
-using Microsoft.AspNetCore.Mvc;
-using static Shared.Dtos.Product.Response;
+using static Shared.Dtos.Product.V1.Response;
 
-namespace Shared.Services.Product;
+namespace Shared.Services.Product.V1;
 
 public static class Query
 {

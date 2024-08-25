@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Product.Domain.Product.Exceptions;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
-using Shared.Dtos.Product;
-using static Shared.Services.Product.Query;
+using Shared.Dtos.Product.V1;
+using static Shared.Services.Product.V1.Query;
 
-namespace Product.Application.UserCases.Product.Queries;
+namespace Product.Application.UserCases.Product.V1.Queries;
 
 internal sealed class GetProductQueryHandler : BaseQueryHandler<IRepositoryWrapper, GetProductQuery, Response.ProductResponse>
 {
@@ -20,12 +20,8 @@ internal sealed class GetProductQueryHandler : BaseQueryHandler<IRepositoryWrapp
     {
         var product = await _repoWrapper.Product
             .FindByCondition(x => x.Id == request.Id)
-            .FirstOrDefaultAsync();
-        
-        if(product is null)
-        {
-            throw new ProductNotFoundException(request.Id);
-        }    
+            .FirstOrDefaultAsync()
+            ?? throw new ProductNotFoundException(request.Id);
 
         var result = new Response.ProductResponse(product.Id, product.Name, product.Price);
 

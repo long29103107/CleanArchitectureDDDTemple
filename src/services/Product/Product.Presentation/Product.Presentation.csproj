@@ -7,11 +7,16 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+		<PackageReference Include="Carter" />
 		<PackageReference Include="MediatR" />
 		<PackageReference Include="Swashbuckle.AspNetCore" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" />
+		<PackageReference Include="MicroElements.Swashbuckle.FluentValidation" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\..\..\packages\Package.Shared.ExceptionHandler\Package.Shared.ExceptionHandler.csproj" />
 		<ProjectReference Include="..\Product.Application\Product.Application.csproj" />
 		<ProjectReference Include="..\Product.Infrastructure\Product.Infrastructure.csproj" />
 	</ItemGroup>

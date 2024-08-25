@@ -4,7 +4,7 @@ using Product.Persistence.Repositories.Abstractions;
 using Serilog;
 using static Product.Domain.Product.Events.ProductEvents;
 
-namespace Product.Application.UserCases.Product.Events;
+namespace Product.Application.UserCases.Product.V1.Events;
 
 internal sealed class UpdatedProductEventHandler : BaseEventHandler<IRepositoryWrapper, UpdatedProductEvent>
 {
@@ -12,7 +12,7 @@ internal sealed class UpdatedProductEventHandler : BaseEventHandler<IRepositoryW
     {
     }
 
-    public async Task Handle(UpdatedProductEvent notification, CancellationToken cancellationToken)
+    public override async Task Handle(UpdatedProductEvent notification, CancellationToken cancellationToken)
     {
         throw new NotImplementedException();
     }

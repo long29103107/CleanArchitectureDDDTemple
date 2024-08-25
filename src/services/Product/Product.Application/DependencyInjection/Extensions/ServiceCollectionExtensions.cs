@@ -6,8 +6,7 @@ namespace Product.Application.DependencyInjection.Extensions;
 
 public static class ServiceCollectionExtensions
 {
-
-    public static IServiceCollection AddServiceApplication(this IServiceCollection services)
+    public static IServiceCollection AddServiceCollectionApplication(this IServiceCollection services)
     {
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies([ ProductApplicationReference.Assembly, InfrastructuresReference.Assembly]));
         services.AddAutoMapper(typeof(AutoMapperConfig));

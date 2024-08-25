@@ -82,7 +82,7 @@ public class RepositoryBase<T, TContext> : IRepositoryBase<T, TContext>
     {
         _context.Set<T>().UpdateRange(entities);
     }
-    public void Delete(T entity)
+    public void Remove(T entity)
     {
         _context.Set<T>().Remove(entity);
     }
