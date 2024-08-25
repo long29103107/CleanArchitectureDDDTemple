@@ -37,8 +37,8 @@
 |  Product  |  Script   | Script-Migration -Context ProductDbContext                                  | 
 
 ## Project tree
-
-     .
+    src
+    |
     ├── BuildingBlocks
     |   ├── Contracts  
     |   |   ├── Abstractions   
@@ -49,17 +49,39 @@
     |   |      ├── Abstractions (Interface base entity, audit tracking)
     |   |      └── Exceptions
     |   ├── Infrastructures  
+    |   |   ├── Common (RepositoryBase, UnitOfWork)
+    │   |   └── BaseHandlers (Implement abstract Query, Command, Event handler)
     |   └── Shared  
+    |       ├── APIs (Base endpoint)
+    |       ├── Dtos
+    │       └── Services (shared command, query)
     ├── packages                   
     │   ├── Database            
     │   └── ExceptionHandler    
     ├── services                   
     │   └── Product            
     │       ├── Api 
+    |       |   ├── Program.cs
+    |       |   └── DependencyInjection 
     │       ├── Application 
+    |       |   ├── AutofacModule
+    |       |   ├── Behaviors
+    |       |   ├── MappingProfiles
+    |       |   ├── UserCases
+    |       |   └── DependencyInjection 
     │       ├── Domain 
+    |       |   ├── Events
+    |       |   └── Exceptions
     │       ├── Infrastructure 
+    |       |   └── DependencyInjection 
     │       ├── Persistence 
+    |       |   ├── Configurations
+    |       |   ├── Interceptors
+    |       |   ├── Repositories
+    |       |   ├── ProductDbContext.cs
+    |       |   └── DependencyInjection 
     │       └── Presentation  
+    |           ├── APIs
+    |           └── DependencyInjection 
     └── shared
         └── Settings  

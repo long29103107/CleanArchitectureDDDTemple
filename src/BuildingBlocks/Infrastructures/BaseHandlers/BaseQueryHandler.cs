@@ -4,7 +4,7 @@ using DistributedSystem.Contract.Abstractions.Message;
 using Serilog;
 using System;
 
-namespace Infrastructures.Messages;
+namespace Infrastructures.BaseHandlers;
 
 public abstract class BaseQueryHandler<TRepositoryWrapper, TQuery, TResponse> : IQueryHandler<TQuery, TResponse>
     where TQuery : IQuery<TResponse>

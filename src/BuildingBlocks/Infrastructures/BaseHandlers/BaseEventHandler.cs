@@ -2,7 +2,7 @@
 using Serilog;
 using AutoMapper;
 
-namespace Infrastructures.Messages;
+namespace Infrastructures.BaseHandlers;
 
 public abstract class BaseEventHandler<TRepositoryWrapper, TEvent> : IDomainEventHandler<TEvent>
     where TEvent : IDomainEvent

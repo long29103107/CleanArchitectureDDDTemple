@@ -4,7 +4,7 @@ using Contracts.Abstractions.Shared;
 using FluentValidation;
 using Serilog;
 
-namespace Infrastructures.Messages;
+namespace Infrastructures.BaseHandlers;
 
 public abstract class BaseCommandHandler<TRepositoryWrapper, TCommand> : ICommandHandler<TCommand>
     where TCommand : ICommand
