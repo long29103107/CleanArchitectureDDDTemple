@@ -1,5 +1,6 @@
 ﻿# Clean Architecture
-
+ 
+A project using Clean Architecture and Domain-Driven Design
 
 ## Setup database configuration
 
