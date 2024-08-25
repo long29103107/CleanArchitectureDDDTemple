@@ -36,7 +36,7 @@
 |  Product  |  Update   | Update-database -Context ProductDbContext                                   | 
 |  Product  |  Script   | Script-Migration -Context ProductDbContext                                  | 
 
-## Project tree
+## Folder tree
     src
     |
     ├── BuildingBlocks
