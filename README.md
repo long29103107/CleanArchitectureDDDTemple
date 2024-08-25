@@ -1,4 +1,4 @@
-### Clean Architecture
+# Clean Architecture
 
 
 ## Setup database configuration
