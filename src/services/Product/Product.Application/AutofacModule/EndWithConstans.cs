@@ -1,4 +1,4 @@
-﻿namespace Product.Persistence.AutofacModule;
+﻿namespace Product.Application.AutofacModule;
 
 public static class EndWithConstans
 {

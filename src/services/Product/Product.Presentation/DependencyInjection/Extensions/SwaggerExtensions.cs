@@ -28,8 +28,5 @@ public static class SwaggerExtensions
             options.EnableTryItOutByDefault();
             options.DocExpansion(DocExpansion.None);
         });
-
-        app.MapGet("/", () => Results.Redirect("/swagger/index.html"))
-            .WithTags(string.Empty);
     }
 }

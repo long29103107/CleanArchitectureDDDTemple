@@ -15,7 +15,7 @@ public static class HostingExtensions
             .AddServiceCollectionPersistence(builder.Configuration)
             .AddServiceCollectionPresentation();
 
-        builder.Host.AddHostPersistence();
+        builder.Host.AddHostApplication();
         builder.Host.AddHostInfrastructure();
 
         return builder.Build();

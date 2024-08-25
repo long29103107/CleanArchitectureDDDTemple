@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Product.Persistence.AutofacModule;
+namespace Product.Application.AutofacModule;
 
 public class GeneralModule<TInterface, TClass>(
     //System.Reflection.Assembly _assemblyService,

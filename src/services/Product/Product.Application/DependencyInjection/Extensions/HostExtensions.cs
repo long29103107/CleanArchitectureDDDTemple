@@ -2,15 +2,15 @@
 using Autofac;
 using Microsoft.Extensions.Hosting;
 using Product.Persistence.Repositories.Abstractions;
-using Product.Persistence.AutofacModule;
+using Product.Application.AutofacModule;
 using Product.Persistence.Repositories;
 using Product.Infrastructure;
 
-namespace Product.Persistence.DependencyInjection.Extensions;
+namespace Product.Application.DependencyInjection.Extensions;
 
 public static class HostExtensions
 {
-    public static void AddHostPersistence(this IHostBuilder host)
+    public static void AddHostApplication(this IHostBuilder host)
     {
         host.AddHostAutofac();
     }

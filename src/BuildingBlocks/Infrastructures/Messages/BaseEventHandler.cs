@@ -13,9 +13,9 @@ public abstract class BaseEventHandler<TRepositoryWrapper, TEvent> : IDomainEven
 
     public BaseEventHandler(TRepositoryWrapper repoWrapper, ILogger logger, IMapper mapper)
     {
-        _repoWrapper = repoWrapper;
-        _logger = logger;
-        _mapper = mapper;
+        _repoWrapper = repoWrapper ?? throw new ArgumentNullException(nameof(_repoWrapper));
+        _mapper = mapper ?? throw new ArgumentNullException(nameof(_mapper));
+        _logger = logger ?? throw new ArgumentNullException(nameof(_logger));
     }
 
     public virtual async Task Handle(TEvent request, CancellationToken cancellationToken)

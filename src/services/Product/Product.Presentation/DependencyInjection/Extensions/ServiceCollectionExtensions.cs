@@ -10,7 +10,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddServiceCollectionPresentation(this IServiceCollection services)
     {
         services.AddExceptionHandler();
-        services.ConfigApiVersionMapping();
+        services.ConfigureApiVersionMapping();
         services.ConfigureSwaggerApi();
 
         return services;
@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
         services.AddProblemDetails();
     }
 
-    public static void ConfigApiVersionMapping(this IServiceCollection services)
+    public static void ConfigureApiVersionMapping(this IServiceCollection services)
     {
         services.AddCarter();
         services.AddApiVersioning(options => options.ReportApiVersions = true)
