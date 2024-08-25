@@ -22,7 +22,7 @@
 - Swagger
 - Autofac
 
-## Using pattern
+## Using design pattern
 - Repository
 - Option
 - Unit of work
