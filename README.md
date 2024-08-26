@@ -28,6 +28,7 @@ A project using Clean Architecture and Domain-Driven Design
 - Option
 - Unit of work
 - Factory
+- Result
 
 ## Migrations
 
