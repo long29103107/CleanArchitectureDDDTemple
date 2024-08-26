@@ -1,5 +1,6 @@
 ﻿# Clean Architecture
-
+ 
+A project using Clean Architecture and Domain-Driven Design
 
 ## Setup database configuration
 
@@ -27,6 +28,7 @@
 - Option
 - Unit of work
 - Factory
+- Result
 
 ## Migrations
 
@@ -36,7 +38,7 @@
 |  Product  |  Update   | Update-database -Context ProductDbContext                                   | 
 |  Product  |  Script   | Script-Migration -Context ProductDbContext                                  | 
 
-## Project tree
+## Folder tree
     src
     |
     ├── BuildingBlocks
