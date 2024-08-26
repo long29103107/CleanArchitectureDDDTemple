@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Infrastructures.Messages;
+using Infrastructures.BaseHandlers;
 using Product.Persistence.Repositories.Abstractions;
 using Serilog;
 using static Product.Domain.Product.Events.ProductEvents;

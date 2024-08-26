@@ -2,7 +2,7 @@
 using Product.Persistence.Repositories.Abstractions;
 using Entities = Product.Domain.Entities;
 using AutoMapper;
-using Infrastructures.Messages;
+using Infrastructures.BaseHandlers;
 using Serilog;
 using Shared.Dtos.Product.V1;
 using static Shared.Services.Product.V1.Command;

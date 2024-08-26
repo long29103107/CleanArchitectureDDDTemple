@@ -2,7 +2,6 @@
 using Contracts.Abstractions.Shared;
 using Product.Persistence.Repositories.Abstractions;
 using Microsoft.EntityFrameworkCore;
-using Infrastructures.Messages;
 using Serilog;
 using Product.Domain.Product.Exceptions;
 using Shared.Dtos.Product.V1;
@@ -10,6 +9,7 @@ using static Shared.Services.Product.V1.Command;
 using Entities = Product.Domain.Entities;
 using FluentValidation;
 using Exceptions = Contracts.Domain.Exceptions;
+using Infrastructures.BaseHandlers;
 
 namespace Product.Application.UserCases.Product.V1.Commands;
 

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Contracts.Abstractions.Shared;
 using FluentValidation;
-using Infrastructures.Messages;
+using Infrastructures.BaseHandlers;
 using Microsoft.EntityFrameworkCore;
 using Product.Domain.Product.Exceptions;
 using Product.Persistence.Repositories.Abstractions;

@@ -1,7 +1,7 @@
 ﻿using Contracts.Abstractions.Shared;
 using Microsoft.EntityFrameworkCore;
 using Product.Persistence.Repositories.Abstractions;
-using Infrastructures.Messages;
+using Infrastructures.BaseHandlers;
 using AutoMapper;
 using Serilog;
 using Shared.Dtos.Product.V1;
