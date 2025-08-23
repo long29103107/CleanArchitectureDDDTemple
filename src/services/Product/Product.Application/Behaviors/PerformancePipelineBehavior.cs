@@ -4,18 +4,11 @@ using System.Diagnostics;
 
 namespace Product.Application.Behaviors;
 
-public class PerformancePipelineBehavior<TRequest, TResponse> :
+public class PerformancePipelineBehavior<TRequest, TResponse>(ILogger logger) :
     IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
 {
-    private readonly Stopwatch _timer;
-    private readonly ILogger _logger;
-
-    public PerformancePipelineBehavior(ILogger logger)
-    {
-        _timer = new Stopwatch();
-        _logger = logger;
-    }
+    private readonly Stopwatch _timer = new();
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -29,7 +22,7 @@ public class PerformancePipelineBehavior<TRequest, TResponse> :
             return response;
 
         var requestName = typeof(TRequest).Name;
-        _logger.Warning("Long Time Running - Request Details: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
+        logger.Warning("Long Time Running - Request Details: {Name} ({ElapsedMilliseconds} milliseconds) {@Request}",
             requestName, elapsedMilliseconds, request);
 
         return response;

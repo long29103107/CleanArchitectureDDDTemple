@@ -3,8 +3,8 @@ using Autofac;
 using Microsoft.Extensions.Hosting;
 using Product.Persistence.Repositories.Abstractions;
 using Product.Application.AutofacModule;
+using Product.Persistence;
 using Product.Persistence.Repositories;
-using Product.Infrastructure;
 
 namespace Product.Application.DependencyInjection.Extensions;
 

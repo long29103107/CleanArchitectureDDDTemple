@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Product.Infrastructure;
+namespace Product.Persistence;
 public static class ProductPersistenceReference
 {
     public static readonly Assembly Assembly = typeof(ProductPersistenceReference).Assembly;

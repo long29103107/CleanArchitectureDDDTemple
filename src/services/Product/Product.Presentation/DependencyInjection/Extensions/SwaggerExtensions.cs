@@ -10,13 +10,13 @@ namespace Product.Presentation.DependencyInjection.Extensions;
 
 public static class SwaggerExtensions
 {
-    public static void AddSwaggerAPI(this IServiceCollection services)
+    public static void AddSwaggerApi(this IServiceCollection services)
     {
         services.AddSwaggerGen();
         services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
     }
 
-    public static void UseSwaggerAPI(this WebApplication app)
+    public static void UseSwaggerApi(this WebApplication app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(options =>

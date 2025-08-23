@@ -37,5 +37,5 @@ public static class ServiceCollectionExtensions
         => services.AddSwaggerGenNewtonsoftSupport()
                 .AddFluentValidationRulesToSwagger()
                 .AddEndpointsApiExplorer()
-                .AddSwaggerAPI();
+                .AddSwaggerApi();
 }

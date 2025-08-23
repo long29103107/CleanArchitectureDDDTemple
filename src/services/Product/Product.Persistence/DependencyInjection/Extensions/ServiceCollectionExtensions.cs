@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Product.Persistence.Interceptor;
 using Microsoft.EntityFrameworkCore;
-using Product.Infrastructure;
 using Product.Persistence.Interceptors;
 using Infrastructures.DependencyInjection.Extensions;
 

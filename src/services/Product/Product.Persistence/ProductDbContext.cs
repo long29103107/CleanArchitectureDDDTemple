@@ -1,15 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Product.Infrastructure;
 using Entities = Product.Domain.Entities;
 
 namespace Product.Persistence;
 
-public class ProductDbContext : DbContext
+public class ProductDbContext(DbContextOptions<ProductDbContext> options) : DbContext(options)
 {
-    public ProductDbContext(DbContextOptions<ProductDbContext> options) : base(options)
-    {
-    }
-
     public virtual DbSet<Entities.Product> Products { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

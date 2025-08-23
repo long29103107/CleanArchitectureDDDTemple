@@ -34,7 +34,7 @@ public static class HostingExtensions
         // Add API Endpoint with carter module
         app.MapCarter();
 
-        app.UseSwaggerAPI(); // Map carter and show api
+        app.UseSwaggerApi(); // Map carter and show api
 
         return app;
     }
