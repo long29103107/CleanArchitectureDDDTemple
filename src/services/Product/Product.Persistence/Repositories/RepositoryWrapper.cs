@@ -21,13 +21,8 @@ public class RepositoryWrapper : UnitOfWork<ProductDbContext>, IRepositoryWrappe
     {
         get
         {
-            if(_product == null)
-            {
-                _product = new ProductRepository(_context, _unitOfwork);
-            }
+            _product ??= new ProductRepository(_context, _unitOfwork);
             return _product;
         }
     }
-
-    public DbSet<Domain.Entities.Product> Products { get; }
 }

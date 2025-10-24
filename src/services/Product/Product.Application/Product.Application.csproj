@@ -17,6 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" />
     <PackageReference Include="AutoMapper" />
     <PackageReference Include="FluentValidation.AspNetCore" />
     <PackageReference Include="Serilog.AspNetCore" />

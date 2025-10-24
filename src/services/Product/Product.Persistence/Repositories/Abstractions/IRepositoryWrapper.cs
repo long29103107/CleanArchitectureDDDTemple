@@ -7,7 +7,5 @@ namespace Product.Persistence.Repositories.Abstractions;
 public interface IRepositoryWrapper : IUnitOfWork<ProductDbContext>
 {
     public IProductRepository Product { get; }
-
-    DbSet<Entities.Product> Products { get; }
 }
 
